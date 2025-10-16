@@ -1,0 +1,23 @@
+<div class="wrap">
+  <a class="back" routerLink="/">← Back to Home</a>
+  <div class="card">
+    <div class="head">💠 User Login</div>
+    <div class="body">
+      <form (ngSubmit)="submit()" #f="ngForm">
+        <div>
+          <label>Email Address</label>
+          <input name="email" [(ngModel)]="model.email" placeholder="your@email.com" type="email" required />
+        </div>
+        <div>
+          <label>Password</label>
+          <input name="password" [(ngModel)]="model.password" placeholder="Enter your password" type="password" required />
+        </div>
+        <div class="actions">
+          <button class="btn" type="submit" [disabled]="loading || !f.form.valid">Login</button>
+        </div>
+        <div *ngIf="error" class="muted">{{ error }}</div>
+        <div class="muted">Don't have an account? <a routerLink="/register">Register here</a></div>
+      </form>
+    </div>
+  </div>
+</div>

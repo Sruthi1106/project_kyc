@@ -1,0 +1,91 @@
+<div class="wrap" *ngIf="user; else loading">
+  <div class="topbar">
+    <h2>KYC Details</h2>
+    <div>
+      <button class="btn" (click)="update()">Save</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="head">User Information</div>
+    <div class="body grid-2">
+      <div class="field">
+        <span class="label">Full Name</span>
+        <div>{{ user.name }}</div>
+      </div>
+      <div class="field">
+        <span class="label">Email</span>
+        <div>{{ user.email }}</div>
+      </div>
+      <div class="field">
+        <span class="label">Phone</span>
+        <div>{{ user.phone }}</div>
+      </div>
+      <div class="field">
+        <span class="label">Address</span>
+        <div>{{ user.address }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="head">Documents</div>
+    <div class="body grid-2">
+      <div>
+        <span class="label">Aadhaar Document</span>
+        <div class="doc">
+          <ng-container *ngIf="user.documents?.aadhaar; else d1">
+            <a [href]="'http://localhost:4000/uploads/' + user.documents.aadhaar" target="_blank">{{ user.documents.aadhaar }}</a>
+          </ng-container>
+          <ng-template #d1>No file</ng-template>
+        </div>
+      </div>
+      <div>
+        <span class="label">PAN Document</span>
+        <div class="doc">
+          <ng-container *ngIf="user.documents?.pan; else d2">
+            <a [href]="'http://localhost:4000/uploads/' + user.documents.pan" target="_blank">{{ user.documents.pan }}</a>
+          </ng-container>
+          <ng-template #d2>No file</ng-template>
+        </div>
+      </div>
+      <div>
+        <span class="label">Photograph</span>
+        <div class="doc">
+          <ng-container *ngIf="user.documents?.photo; else d3">
+            <img [src]="'http://localhost:4000/uploads/' + user.documents.photo" style="max-height:120px" />
+          </ng-container>
+          <ng-template #d3>No file</ng-template>
+        </div>
+      </div>
+      <div>
+        <span class="label">Address Proof</span>
+        <div class="doc">
+          <ng-container *ngIf="user.documents?.addressProof; else d4">
+            <a [href]="'http://localhost:4000/uploads/' + user.documents.addressProof" target="_blank">{{ user.documents.addressProof }}</a>
+          </ng-container>
+          <ng-template #d4>No file</ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="head">Verification</div>
+    <div class="body grid-2">
+      <div class="field">
+        <span class="label">Status</span>
+        <select [(ngModel)]="status" style="background:#0e1f2f;border:1px solid #29465e;color:#e2e8f0;padding:8px 10px;border-radius:6px;width:100%">
+          <option>Pending</option>
+          <option>Approved</option>
+          <option>Rejected</option>
+        </select>
+      </div>
+      <div class="field">
+        <span class="label">Reason (if rejected)</span>
+        <input [(ngModel)]="reason" style="background:#0e1f2f;border:1px solid #29465e;color:#e2e8f0;padding:8px 10px;border-radius:6px;width:100%" />
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>Loading...</ng-template>

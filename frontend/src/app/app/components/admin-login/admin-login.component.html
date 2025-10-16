@@ -1,0 +1,27 @@
+<div class="wrap">
+  <a class="back" routerLink="/">← Back to Home</a>
+  <div class="card">
+    <div class="head">🛡️ Admin Login</div>
+    <div class="body">
+      <form (ngSubmit)="submit()" #f="ngForm">
+        <div>
+          <label>Admin Email</label>
+          <input name="email" [(ngModel)]="model.email" placeholder="admin@kycportal.com" type="email" required />
+        </div>
+        <div>
+          <label>Password</label>
+          <input name="password" [(ngModel)]="model.password" placeholder="Enter admin password" type="password" required />
+        </div>
+        <div class="hint">
+          <div>Default Credentials:</div>
+          <div>Email: admin&#64;kycportal.com</div>
+          <div>Password: admin123</div>
+        </div>
+        <div class="actions">
+          <button class="btn" type="submit" [disabled]="loading || !f.form.valid">Admin Login</button>
+        </div>
+        <div *ngIf="error" class="hint" style="margin-top:10px;">{{ error }}</div>
+      </form>
+    </div>
+  </div>
+</div>

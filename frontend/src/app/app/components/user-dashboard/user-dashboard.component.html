@@ -1,0 +1,99 @@
+<div class="wrap" *ngIf="me; else loading">
+  <div class="top">
+    <h2>Welcome, {{ me.name }}!</h2>
+    <button class="logout" (click)="logout()">Logout</button>
+  </div>
+  <p class="muted">Manage your KYC verification status and details</p>
+
+  <div class="section">
+    <div class="head">
+      <span>KYC Verification Status</span>
+      <span class="badge">{{ me.status || 'Pending' }}</span>
+    </div>
+    <div class="body">
+      <div class="field muted">Your KYC application is under review. We will notify you once it is processed.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head">Personal Information</div>
+    <div class="body grid-2">
+      <div class="field">
+        <div class="muted">Full Name</div>
+        <div>{{ me.name }}</div>
+      </div>
+      <div class="field">
+        <div class="muted">Email Address</div>
+        <div>{{ me.email }}</div>
+      </div>
+      <div class="field">
+        <div class="muted">Phone Number</div>
+        <div>{{ me.phone }}</div>
+      </div>
+      <div class="field">
+        <div class="muted">Address</div>
+        <div>{{ me.address }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head">KYC Documents</div>
+    <div class="body grid-2">
+      <div>
+        <div class="muted">Aadhaar Document</div>
+        <div class="doc">
+          <ng-container *ngIf="me.documents?.aadhaar; else doc1">
+            <a [href]="'http://localhost:4000/uploads/' + me.documents.aadhaar" target="_blank">{{ me.documents.aadhaar }}</a>
+          </ng-container>
+          <ng-template #doc1>No file</ng-template>
+        </div>
+      </div>
+      <div>
+        <div class="muted">PAN Document</div>
+        <div class="doc">
+          <ng-container *ngIf="me.documents?.pan; else doc2">
+            <a [href]="'http://localhost:4000/uploads/' + me.documents.pan" target="_blank">{{ me.documents.pan }}</a>
+          </ng-container>
+          <ng-template #doc2>No file</ng-template>
+        </div>
+      </div>
+      <div>
+        <div class="muted">Photograph</div>
+        <div class="doc">
+          <ng-container *ngIf="me.documents?.photo; else doc3">
+            <img [src]="'http://localhost:4000/uploads/' + me.documents.photo" style="max-height:120px" />
+          </ng-container>
+          <ng-template #doc3>No file</ng-template>
+        </div>
+      </div>
+      <div>
+        <div class="muted">Address Proof</div>
+        <div class="doc">
+          <ng-container *ngIf="me.documents?.addressProof; else doc4">
+            <a [href]="'http://localhost:4000/uploads/' + me.documents.addressProof" target="_blank">{{ me.documents.addressProof }}</a>
+          </ng-container>
+          <ng-template #doc4>No file</ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head">Upload / Update Documents</div>
+    <div class="body">
+      <form (submit)="upload($event)" class="grid-2">
+        <label>Aadhaar<input type="file" name="aadhaar" /></label>
+        <label>PAN<input type="file" name="pan" /></label>
+        <label>Photo<input type="file" name="photo" /></label>
+        <label>Address Proof<input type="file" name="addressProof" /></label>
+        <div style="grid-column:1/-1">
+          <button class="logout" style="background:#0b7285;color:#fff;border-color:#0b7285">Upload</button>
+          <span *ngIf="uploadError" class="muted">{{ uploadError }}</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<ng-template #loading>Loading...</ng-template>
+<div *ngIf="error">{{ error }}</div>

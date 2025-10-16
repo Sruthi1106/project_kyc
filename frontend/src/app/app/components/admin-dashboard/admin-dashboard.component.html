@@ -1,0 +1,49 @@
+<div class="wrap">
+  <header class="topbar">
+    <h2>Admin Dashboard</h2>
+    <button class="btn" (click)="logout()">Logout</button>
+  </header>
+
+  <h3 class="section-title">KYC Application Management</h3>
+
+  <div class="stats">
+    <div class="card"><div class="label">Total Applications</div><div class="num">{{ total }}</div></div>
+    <div class="card"><div class="label">Pending</div><div class="num warn">{{ pending }}</div></div>
+    <div class="card"><div class="label">Approved</div><div class="num ok">{{ approved }}</div></div>
+    <div class="card"><div class="label">Rejected</div><div class="num err">{{ rejected }}</div></div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-head">
+      <span>All KYC Applications</span>
+      <input [(ngModel)]="q" placeholder="Search by name, email, or phone" />
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Submitted</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of filtered">
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.phone }}</td>
+          <td>
+            <span class="badge" [class.ok]="u.status==='Approved'" [class.warn]="u.status==='Pending'" [class.err]="u.status==='Rejected'">{{ u.status }}</span>
+          </td>
+          <td>{{ u.createdAt | date:'MM/dd/yyyy' }}</td>
+          <td>
+            <a class="btn ghost" [routerLink]="['/admin/user', u._id]">View</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="empty" *ngIf="!filtered.length">No results.</div>
+  </div>
+</div>

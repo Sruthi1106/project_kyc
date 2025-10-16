@@ -1,0 +1,13 @@
+:host { display:block; }
+body, :host { background:#0d1b2a; }
+.wrap { max-width: 520px; margin: 40px auto; padding: 0 16px; }
+.back { color:#8bd3e6; text-decoration:none; font-size:13px; }
+.card { background:#13293d; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.4); overflow:hidden; border:1px solid rgba(255,255,255,.06); }
+.head { background: linear-gradient(180deg,#2a4157,#1b2b3b); color:#e6f6f8; padding:16px 20px; font-weight:600; }
+.body { padding:20px; color:#e2e8f0; }
+label { font-size:12px; color:#94a3b8; display:block; margin-bottom:6px; }
+input { width:100%; padding:10px 12px; border:1px solid #29465e; border-radius:6px; background:#0e1f2f; color:#e2e8f0; }
+.hint { font-size:12px; background:#0e1f2f; border:1px solid #29465e; color:#94a3b8; padding:10px; border-radius:6px; margin-top:10px; }
+.actions { margin-top:14px; }
+.btn { width:100%; background:#0ea5b3; color:#0a1929; border:0; padding:12px 16px; border-radius:8px; cursor:pointer; font-weight:600; }
+

@@ -1,0 +1,67 @@
+<div class="container">
+  <a class="back" routerLink="/">← Back to Home</a>
+  <div class="card">
+    <div class="card-header">
+      <span>🛡️ KYC Registration</span>
+    </div>
+    <div class="card-body">
+      <div class="card-sub">Complete your identity verification</div>
+      <form (ngSubmit)="submit()" #f="ngForm">
+        <div class="grid-2">
+          <div>
+            <label>Full Name *</label>
+            <input name="name" [(ngModel)]="model.name" required />
+          </div>
+          <div>
+            <label>Email Address *</label>
+            <input name="email" [(ngModel)]="model.email" type="email" required />
+          </div>
+          <div>
+            <label>Password *</label>
+            <input name="password" [(ngModel)]="model.password" type="password" required />
+          </div>
+          <div>
+            <label>Phone Number *</label>
+            <input name="phone" [(ngModel)]="model.phone" required />
+          </div>
+        </div>
+
+        <h4>KYC Documents</h4>
+        <div class="grid-2">
+          <div>
+            <label>Aadhaar Number *</label>
+            <input name="aadhaar" [(ngModel)]="model.aadhaar" />
+          </div>
+          <div>
+            <label>PAN Number *</label>
+            <input name="pan" [(ngModel)]="model.pan" />
+          </div>
+        </div>
+        <div>
+          <label>Address *</label>
+          <textarea name="address" [(ngModel)]="model.address"></textarea>
+        </div>
+
+        <h4>Upload Documents</h4>
+        <div class="fieldset">
+          <div class="fieldset-title">Aadhaar Document *</div>
+          <input type="file" />
+        </div>
+        <div class="fieldset">
+          <div class="fieldset-title">PAN Document *</div>
+          <input type="file" />
+        </div>
+        <div class="fieldset">
+          <div class="fieldset-title">Photograph *</div>
+          <input type="file" />
+        </div>
+
+        <div class="submit">
+          <button class="btn-primary" type="submit" [disabled]="loading || !f.form.valid">Submit KYC Application</button>
+        </div>
+        <div *ngIf="error" class="muted">{{ error }}</div>
+        <div class="muted">Already have an account? <a routerLink="/login">Login here</a></div>
+      </form>
+    </div>
+  </div>
+</div>
