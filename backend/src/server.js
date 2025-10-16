@@ -26,6 +26,25 @@ app.use('/api', require('./routes/user.routes'));
 app.use('/api', require('./routes/admin.routes'));
 app.use('/api', require('./routes/upload.routes'));
 
+// Serve frontend production build if present
+const path = require('path');
+const fs = require('fs');
+const frontDistBase = path.join(process.cwd(), 'frontend', 'dist', 'frontend');
+// Some Angular builds place files directly in dist/frontend, others under dist/frontend/browser
+let frontDistPath = frontDistBase;
+const browserSub = path.join(frontDistBase, 'browser');
+if (fs.existsSync(browserSub)) frontDistPath = browserSub;
+
+if (fs.existsSync(frontDistPath)) {
+  app.use(express.static(frontDistPath));
+
+  // SPA fallback: serve index.html for non-API routes
+  app.get('*', (req, res) => {
+    if (req.path.startsWith('/api')) return res.status(404).json({ error: 'Not found' });
+    res.sendFile(path.join(frontDistPath, 'index.html'));
+  });
+}
+
 // DB connect and start
 const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/kyc_portal';
